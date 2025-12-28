@@ -1,0 +1,35 @@
+﻿<local:ReactiveInkCanvasView
+    x:Class="ReactiveUIApp.Uwp.Views.InkCanvasView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:ReactiveUIApp.Uwp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:ReactiveUIApp.Core.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:InkCanvasViewModel}"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel BorderBrush="Gray" BorderThickness="1">
+            <InkToolbar x:Name="inkToolbar" TargetInkCanvas="{x:Bind inkCanvas}" />
+            <Grid
+                Width="800"
+                Height="300"
+                Background="{ThemeResource SystemControlBackgroundChromeWhiteBrush}">
+                <InkCanvas x:Name="inkCanvas" />
+            </Grid>
+            <CommandBar>
+                <AppBarButton
+                    x:Name="saveButton"
+                    Icon="Save"
+                    Label="Save" />
+                <AppBarButton
+                    x:Name="openButton"
+                    Icon="OpenFile"
+                    Label="Open" />
+            </CommandBar>
+        </StackPanel>
+    </Grid>
+</local:ReactiveInkCanvasView>

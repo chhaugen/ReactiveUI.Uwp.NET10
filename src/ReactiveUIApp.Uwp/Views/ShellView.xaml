@@ -1,0 +1,32 @@
+﻿<local:ReactiveShellView
+    x:Class="ReactiveUIApp.Uwp.Views.ShellView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:ReactiveUIApp.Uwp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:rxui="using:ReactiveUI"
+    xmlns:viewmodels="using:ReactiveUIApp.Core.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <muxc:NavigationView
+        x:Name="navigationView"
+        IsSettingsVisible="False"
+        PaneDisplayMode="Top">
+        <muxc:NavigationView.MenuItems>
+            <muxc:NavigationViewItem
+                x:Name="smileNavigationViewItem"
+                Content="Smile"
+                Icon="Emoji2" />
+            <muxc:NavigationViewItem x:Name="inkCanvasNavigationViewItem" Content="Ink Canvas">
+                <muxc:NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE790;" />
+                </muxc:NavigationViewItem.Icon>
+            </muxc:NavigationViewItem>
+        </muxc:NavigationView.MenuItems>
+        <rxui:RoutedViewHost x:Name="routedViewHost" />
+    </muxc:NavigationView>
+</local:ReactiveShellView>

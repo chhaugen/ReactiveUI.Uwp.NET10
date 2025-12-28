@@ -1,1 +1,3 @@
-<Solution />
+<Solution>
+  <Project Path="src/ReactiveUI.Uwp/ReactiveUI.Uwp.csproj" />
+</Solution>

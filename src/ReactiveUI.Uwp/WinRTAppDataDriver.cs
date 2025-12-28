@@ -22,14 +22,14 @@ namespace ReactiveUI;
 public class WinRTAppDataDriver : ISuspensionDriver
 {
     /// <inheritdoc/>
-    public IObservable<object> LoadState() =>
+    public IObservable<object?> LoadState() =>
         ApplicationData.Current.RoamingFolder.GetFileAsync("appData.xmlish").ToObservable()
                        .SelectMany(x => FileIO.ReadTextAsync(x, UnicodeEncoding.Utf8))
                        .SelectMany(x =>
                        {
                            var line = x.IndexOf('\n');
                            var typeName = x.Substring(0, line - 1); // -1 for CR
-                           var serializer = new DataContractSerializer(Type.GetType(typeName));
+                           var serializer = new DataContractSerializer(Type.GetType(typeName)!); // TODO: Better error handeling
 
                            // NB: WinRT is terrible
                            var obj = serializer.ReadObject(new MemoryStream(Encoding.UTF8.GetBytes(x.Substring(line + 1))));

@@ -27,7 +27,7 @@ public class ActivationForViewFetcher : IActivationForViewFetcher
     {
         if (view is not FrameworkElement fe)
         {
-            return Observable<bool>.Empty;
+            return Observable.Empty<bool>();
         }
 
         var viewLoaded = Observable.FromEvent<TypedEventHandler<FrameworkElement, object>, bool>(
@@ -50,7 +50,7 @@ public class ActivationForViewFetcher : IActivationForViewFetcher
 
         return viewLoaded
                .Merge(viewUnloaded)
-               .Select(b => b ? fe.WhenAnyValue(x => x.IsHitTestVisible).SkipWhile(x => !x) : Observables.False)
+               .Select(b => b ? fe.WhenAnyValue(x => x.IsHitTestVisible).SkipWhile(x => !x) : Observable.Return(false))
                .Switch()
                .DistinctUntilChanged();
     }

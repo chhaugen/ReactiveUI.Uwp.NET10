@@ -15,7 +15,7 @@ using Splat;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 #elif NETFX_CORE || HAS_UNO
-using System.Windows;
+//using System.Windows;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 #else
@@ -59,7 +59,7 @@ namespace ReactiveUI
         /// The view contract observable property.
         /// </summary>
         public static readonly DependencyProperty ViewContractObservableProperty =
-            DependencyProperty.Register("ViewContractObservable", typeof(IObservable<string>), typeof(RoutedViewHost), new PropertyMetadata(Observable<string>.Default));
+            DependencyProperty.Register("ViewContractObservable", typeof(IObservable<string>), typeof(RoutedViewHost), new PropertyMetadata(Observable.Return(default(string)!)));
 
         private string? _viewContract;
 
@@ -89,7 +89,7 @@ namespace ReactiveUI
             }
 
             ViewContractObservable = ModeDetector.InUnitTestRunner()
-                ? Observable<string>.Never
+                ? Observable.Never<string>()
                 : Observable.FromEvent<SizeChangedEventHandler, string?>(
                     eventHandler =>
                     {

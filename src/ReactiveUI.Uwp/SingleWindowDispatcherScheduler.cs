@@ -140,7 +140,7 @@ public class SingleWindowDispatcherScheduler : IScheduler
 
         timer.Start();
 #pragma warning disable RCS1163 // Unused parameter.
-        void RaiseToDispatcher(object sender, object e)
+        void RaiseToDispatcher(object? sender, object e)
 #pragma warning restore RCS1163 // Unused parameter.
         {
             timer.Stop();

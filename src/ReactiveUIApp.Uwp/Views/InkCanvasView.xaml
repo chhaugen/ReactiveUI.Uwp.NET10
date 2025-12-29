@@ -12,15 +12,31 @@
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel BorderBrush="Gray" BorderThickness="1">
-            <InkToolbar x:Name="inkToolbar" TargetInkCanvas="{x:Bind inkCanvas}" />
-            <Grid
-                Width="800"
-                Height="300"
-                Background="{ThemeResource SystemControlBackgroundChromeWhiteBrush}">
-                <InkCanvas x:Name="inkCanvas" />
-            </Grid>
-            <CommandBar>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel
+                Grid.Row="1"
+                BorderBrush="Gray"
+                BorderThickness="1">
+                <InkToolbar x:Name="inkToolbar" TargetInkCanvas="{x:Bind inkCanvas}" />
+                <Grid
+                    Width="800"
+                    Height="300"
+                    Background="{ThemeResource SystemControlBackgroundChromeWhiteBrush}">
+                    <InkCanvas x:Name="inkCanvas" />
+                </Grid>
+            </StackPanel>
+            <CommandBar Grid.Row="2" OverflowButtonVisibility="Collapsed">
                 <AppBarButton
                     x:Name="saveButton"
                     Icon="Save"
@@ -30,6 +46,7 @@
                     Icon="OpenFile"
                     Label="Open" />
             </CommandBar>
-        </StackPanel>
+        </Grid>
+
     </Grid>
 </local:ReactiveInkCanvasView>

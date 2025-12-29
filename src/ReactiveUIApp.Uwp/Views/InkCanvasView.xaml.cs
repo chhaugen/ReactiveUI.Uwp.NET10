@@ -1,5 +1,4 @@
-﻿using DynamicData;
-using ReactiveUI;
+﻿using ReactiveUI;
 using ReactiveUIApp.Core.Extensions;
 using ReactiveUIApp.Core.Models;
 using ReactiveUIApp.Core.ViewModels;
@@ -99,15 +98,16 @@ public sealed partial class InkCanvasView : ReactiveInkCanvasView
         // Show the picker
         StorageFile? file = await savePicker.PickSaveFileAsync();
 
-        if (file is null)
+        if (file is null){
+            context.SetOutput(Unit.Default);
             return;
+        }
 
         await FileIO.WriteBytesAsync(file, context.Input);
-
         context.SetOutput(Unit.Default);
     }
 
-    private async Task ShowOpenFilePickerHandler(IInteractionContext<Unit, byte[]> context)
+    private async Task ShowOpenFilePickerHandler(IInteractionContext<Unit, byte[]?> context)
     {
         // Create the open picker
         var openPicker = new FileOpenPicker
@@ -120,8 +120,10 @@ public sealed partial class InkCanvasView : ReactiveInkCanvasView
 
         StorageFile? file = await openPicker.PickSingleFileAsync();
 
-        if (file is null)
+        if (file is null){
+            context.SetOutput(null);
             return;
+        }
 
         var buffer = await FileIO.ReadBufferAsync(file);
         context.SetOutput(buffer.ToArray());

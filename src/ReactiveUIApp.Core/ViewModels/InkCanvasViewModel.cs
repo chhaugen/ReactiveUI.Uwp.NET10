@@ -2,7 +2,6 @@
 using ReactiveUI.SourceGenerators;
 using ReactiveUIApp.Core.Extensions;
 using ReactiveUIApp.Core.Models;
-using System;
 using Splat;
 using System.Reactive;
 using System.Reactive.Threading.Tasks;
@@ -20,7 +19,7 @@ public partial class InkCanvasViewModel : ReactiveObject, IRoutableViewModel
 
     public Interaction<byte[], Unit> ShowSaveFilePicker { get; } = new();
 
-    public Interaction<Unit, byte[]> ShowOpenFilePicker { get; } = new();
+    public Interaction<Unit, byte[]?> ShowOpenFilePicker { get; } = new();
 
     public InkCanvasViewModel(IScreen? screen = null)
     {
@@ -40,6 +39,10 @@ public partial class InkCanvasViewModel : ReactiveObject, IRoutableViewModel
     private async Task OpenAsync()
     {
         var bytes = await ShowOpenFilePicker.Handle(Unit.Default).ToTask();
+
+        if (bytes is null)
+            return;
+
         var hash = bytes.Length == 0
             ? bytes.GetHashCode()
             : bytes

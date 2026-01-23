@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "UwpBlankApp": {
+    "ReactiveUIApp": {
       "commandName": "MsixPackage"
     }
   }
